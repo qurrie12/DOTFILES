@@ -1,0 +1,145 @@
+set $mod Mod4
+
+# Font
+font pango:Terminus 10
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec urxvt
+
+# kill focused window
+bindsym $mod+w kill
+
+# start rofi
+bindsym $mod+space exec rofi -theme onedark -show run
+
+# change focus with keys
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Define names for default workspaces for which we configure key bindings later on.
+# We use variables to avoid repeating the names in multiple places.
+set $ws1 "A"
+set $ws2 "1"
+set $ws3 "C"
+set $ws4 "D"
+set $ws5 "F"
+set $ws6 "B"
+set $ws7 "2"
+set $ws8 "3"
+set $ws9 "4"
+set $ws10 "5"
+
+# switch to workspace
+bindsym $mod+apostrophe workspace $ws1
+bindsym $mod+1 workspace $ws2
+bindsym $mod+period workspace $ws3
+bindsym $mod+p workspace $ws4
+bindsym $mod+y workspace $ws5
+bindsym $mod+comma workspace $ws6
+bindsym $mod+2 workspace $ws7
+bindsym $mod+3 workspace $ws8
+bindsym $mod+4 workspace $ws9
+bindsym $mod+5 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+apostrophe move container to workspace $ws1
+bindsym $mod+Shift+1 move container to workspace $ws2
+bindsym $mod+Shift+period move container to workspace $ws3
+bindsym $mod+Shift+p move container to workspace $ws4
+bindsym $mod+Shift+y move container to workspace $ws5
+bindsym $mod+Shift+comma move container to workspace $ws6
+bindsym $mod+Shift+2 move container to workspace $ws7
+bindsym $mod+Shift+3 move container to workspace $ws8
+bindsym $mod+Shift+4 move container to workspace $ws9
+bindsym $mod+Shift+5 move container to workspace $ws10
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+#bar {
+#        status_command i3status
+#}
+
+### i3-gaps stuff ###
+
+for_window [class="^.*"] border pixel 0
+for_window [class="telegram-desktop"] floating enable
+for_window [class="TelegramDesktop"] floating enable
+for_window [class="Telegram"] floating enable
+
+# Set inner/outer gaps
+gaps inner 25
+gaps outer 25
+
+# Gaps mode
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+exec feh --bg-fill /home/qurrie/DOTFILES/wp2.jpg
+exec compton
+exec telegram-desktop -startintray
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# browser pop-ups
+for_window [window_role="pop-up"] floating enable
+
+exec polybar bottom
+exec polybar bottom2

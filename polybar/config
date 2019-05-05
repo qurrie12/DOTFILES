@@ -1,0 +1,86 @@
+[bar/bottom]
+monitor = DVI-I-1
+
+font-0 = "Terminus:pixelsize=12"
+font-1 = Font Awesome 5 Free:pixelsize=10;3
+font-2 = Font Awesome 5 Free Solid:pixelsize=10;3
+font-3 = Font Awesome 5 Brands:pixelsize=10;3
+
+background = #00000000
+
+bottom = true
+override-redirect = false
+
+modules-right = vpn weather pulseaudio date
+modules-center = spotify 
+modules-left = i3
+tray-position = right
+height = 16
+fixed-center = true
+
+module-margin-right = 3
+
+
+[bar/bottom2]
+monitor = HDMI-0
+
+background = #00000000
+bottom = true
+override-redirect = false 
+module-margin-right = 3
+fixed-center = true
+
+modeles-right = date
+modules-center = 
+modules-left = i3
+tray-position = right
+height = 28
+
+[module/date]
+type = internal/date
+#date = %d-%m-%Y%
+#time = %H:%M
+date =    %%{F#99}%d/%m/%Y%%{F-}  %%{F#fff}%I:%M %p%{F-}
+
+[module/i3]
+type = internal/i3
+
+pin-workspaces = true
+enable-scroll = false
+wrapping-scroll = false
+
+[module/spotify]
+type = custom/script
+interval = 0.1
+# exec = python /home/qurrie/DOTFILES/scripts/spotify.py -f '{artist} - {song}'
+exec = python /home/qurrie/DOTFILES/scripts/music.py
+
+[module/pulseaudio]
+type = custom/script
+interval = 0.1
+foreground = #FC4437
+exec = python /home/qurrie/DOTFILES/scripts/volume.py
+
+[module/time]
+type = internal/date
+interval = 2
+ 
+date = "    %d.%m.%Y"
+date-alt = "    %A, %d. %B"
+ 
+time = "%H:%M"
+time-alt = "%H:%M:%S"
+ 
+format-padding = 2
+label = "%time%"
+label-font = 1
+
+[module/vpn]
+type = custom/script
+interval = 1
+exec = python /home/qurrie/DOTFILES/scripts/vpn.py
+
+[module/weather]
+type = custom/script
+interval = 30
+exec = python /home/qurrie/DOTFILES/scripts/weather.py
